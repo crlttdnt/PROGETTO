@@ -1,0 +1,231 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    background-size: cover;
+}
+
+a {
+    color: inherit !important;
+}
+
+header {
+    background-color: #17469e;
+    padding: 15px; /* Ridotto da 20px */
+    text-align: center;
+    color: white;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.5rem; /* Ridotto per rendere il titolo più piccolo */
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 15px; 
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem; 
+}
+
+main {
+    padding: 15px; 
+    background-color: rgba(255, 255, 255, 0.8);
+    margin: 15px; 
+    border-radius: 8px; 
+}
+
+section {
+    margin-bottom: 15px; 
+    text-align: left; 
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    margin-bottom: 4px; /* Ridotto da 5px */
+    font-size: 0.9rem; /* Ridotto per rendere il testo più piccolo */
+}
+
+form input {
+    margin-bottom: 10px; /* Ridotto da 15px */
+    padding: 8px; /* Ridotto da 10px */
+    border: 1px solid #ccc;
+    border-radius: 4px; /* Ridotto da 5px */
+    font-size: 0.9rem; /* Ridotto per rendere il testo più piccolo */
+}
+
+form button {
+    padding: 8px; /* Ridotto da 10px */
+    background-color: #17469e;
+    color: white;
+    border: none;
+    border-radius: 4px; /* Ridotto da 5px */
+    cursor: pointer;
+    font-size: 0.9rem; /* Ridotto per rendere il testo più piccolo */
+}
+
+form button:hover {
+    text-decoration: underline;
+}
+
+footer {
+    text-align: center;
+    padding: 8px; /* Ridotto da 10px */
+    background-color: #17469e;
+    color: white;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+/* Nascondi i campi di input per default */
+#numeroStanzaField,
+#codiceLabField {
+    display: none;
+}
+
+/* Mostra il campo di input per Numero Stanza quando il radio button corrispondente è selezionato */
+input[name="labOption"][value="numeroStanza"]:checked ~ #numeroStanzaField {
+    display: block;
+}
+
+/* Mostra il campo di input per Codice Lab Esterno quando il radio button corrispondente è selezionato */
+input[name="labOption"][value="codiceLab"]:checked ~ #codiceLabField {
+    display: block;
+}
+
+/* Stili personalizzati per i bottoni ovali */
+.custom-oval-btn {
+    width: 120px; /* Ridotto da 150px */
+    height: 60px; /* Ridotto da 75px */
+    font-size: 0.85rem; /* Ridotto da 1rem */
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    border-radius: 40px; /* Ridotto da 50px */
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid transparent;
+}
+
+.custom-oval-btn:hover {
+    transform: scale(1.05);
+    border-color: #ccc;
+}
+
+.button-icon {
+    width: 25px; /* Ridotto da 30px */
+    height: 25px; /* Ridotto da 30px */
+    margin-bottom: 4px; /* Ridotto da 5px */
+}
+
+.section-container {
+    padding: 15px; /* Ridotto da 20px */
+    background: #e6f7ff;
+    border-radius: 15px; /* Ridotto da 20px */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px; /* Ridotto da 20px */
+    text-align: center; 
+}
+
+.section-title {
+    color: #1197f3;
+    font-size: 1.25rem; /* Ridotto da 1.5rem */
+    font-weight: bold;
+}
+
+/* Stili aggiuntivi per la tabella */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+}
+
+.table th, .table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    color: #17469e;
+}
+
+.table td {
+    text-align: center;
+}
+
+.table .btn {
+    border: none;
+    outline: none;
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.table .btn-primary {
+    background-color: #0d6efd;
+    color: #fff;
+}
+
+.table .btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.table .btn i {
+    font-size: 1rem;
+}
+
+.table .btn:hover {
+    opacity: 0.8;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+}
+
+.table-bordered {
+    border: 1px solid #ddd;
+}
+
+.table thead th {
+    border-bottom: 2px solid #ddd;
+}
+
+.table th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: #e6f7ff;
+}
+
+.table th, .table td {
+    padding: 10px;
+    text-align: left;
+}
