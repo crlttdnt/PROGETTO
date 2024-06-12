@@ -1,4 +1,7 @@
 -- codice SQL per la creazione delle tabelle del DataBase
+
+CREATE TYPE FasciaUrgenza AS ENUM ('Rosso', 'Giallo', 'Verde');
+
 CREATE TABLE Ospedale (
     codice INT PRIMARY KEY,
     nomeOspedale VARCHAR(40) NOT NULL,
@@ -185,7 +188,7 @@ CREATE TABLE Esame (
     pazienteVisita CHAR(17) REFERENCES PazienteVisita (codiceFiscale) ON UPDATE CASCADE,
     dataPrenotazione DATE NOT NULL,
     CHECK (dataPrenotazione <= dataEsame),
-    urgenza VARCHAR(10) NOT NULL,
+    urgenza FasciaUrgenza NOT NULL,,
     descrizione VARCHAR(80) NOT NULL,
     oraEsame TIME(3) NOT NULL,
     codiceOspedale INT,

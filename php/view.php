@@ -1,7 +1,6 @@
 <?php
 // Include the database connection file and the buildTable function file
-include 'dbconnect.php';
-include 'htmlbuilder.php';
+include 'utility.php';
 include 'opmanager.php';
 
 

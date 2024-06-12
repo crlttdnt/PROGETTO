@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+
+if (isset($_SESSION['error_message'])) {
+    $error_message = $_SESSION['error_message'];
+    echo "<script type='text/javascript'>alert('$error_message');</script>";
+    unset($_SESSION['error_message']);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -13,7 +24,7 @@
         <h1>Gestione aziende ospedaliere</h1>
         <nav>
             <ul>
-                <li><a href="home.php">Home</a></li>
+                <li><a href="/php/home.php">Home</a></li>
             </ul>
         </nav>
     </header>
@@ -28,7 +39,7 @@
                 <a href="modifica_ospedale.php" class="btn custom-oval-btn mx-2">
                     Modifica
                 </a>
-                <a href="view.php" class="btn custom-oval-btn mx-2">
+                <a href="php/view.php" class="btn custom-oval-btn mx-2">
                     Visualizza
                 </a>
             </div>
