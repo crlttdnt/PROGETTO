@@ -12,7 +12,6 @@ function connectToDatabase()
         echo '<br> Connessione al database fallita. <br>';
         exit();
     }
-
     return $connection;
 }
 

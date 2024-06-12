@@ -296,10 +296,10 @@ INSERT INTO orarioApertura (nomeGiorno, codiceLabEsterno, oraApertura, oraChiusu
 
 INSERT INTO Esame (codice, dataEsame, pazienteVisita, dataPrenotazione, urgenza, descrizione, oraEsame, codiceOspedale, nomeReparto, numeroStanza, codiceLabEsterno) VALUES
 (1, '2024-06-01', 'PZNT0001X01A123B', '2024-05-20', 'verde', 'Visita Ginecologica', '10:00:00', 1, 'Cardiologia', 13, NULL),
-(2, '2024-06-02', 'PZNT0002X01A123B', '2024-05-21', 'gialla', 'Esame del Sangue', '11:00:00', 1, 'Ortopedia', 11, NULL),
-(3, '2024-06-03', 'PZNT0003X01A123B', '2024-05-22', 'rossa', 'Risonanza Magnetica', '12:00:00', 1, 'Pediatria', 12, NULL),
+(2, '2024-06-02', 'PZNT0002X01A123B', '2024-05-21', 'giallo', 'Esame del Sangue', '11:00:00', 1, 'Ortopedia', 11, NULL),
+(3, '2024-06-03', 'PZNT0003X01A123B', '2024-05-22', 'rosso', 'Risonanza Magnetica', '12:00:00', 1, 'Pediatria', 12, NULL),
 (4, '2024-06-04', 'PZNT0004X01A123B', '2024-05-23', 'verde', 'Ecografia', '09:00:00', 1, 'Cardiologia', 13, NULL),
-(5, '2024-06-05', 'PZNT0005X01A123B', '2024-05-24', 'gialla', 'Visita Cardiologica', '10:30:00', 1, 'Ortopedia', 11, NULL);
+(5, '2024-06-05', 'PZNT0005X01A123B', '2024-05-24', 'giallo', 'Visita Cardiologica', '10:30:00', 1, 'Ortopedia', 11, NULL);
 
 
 INSERT INTO EsameSpecialistico (codice, dataEsame, pazienteVisita, avvertenze, costoPrivato, personaleMedico) VALUES
