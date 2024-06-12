@@ -4,7 +4,7 @@ $table = $_SESSION['table'];
 
 if (isset($_SESSION['error_message'])) {
     $error_message = $_SESSION['error_message'];
-    echo "<script type='text/javascript'>alert('$error_message');</script>";
+    echo "<script type='text/javascript'>alert(`$error_message`);</script>";
     unset($_SESSION['error_message']); 
 }
 ?>
@@ -18,7 +18,7 @@ if (isset($_SESSION['error_message'])) {
     <title> Gestore Aziende Ospedaliere
     </title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
@@ -62,7 +62,7 @@ if (isset($_SESSION['error_message'])) {
             showEditForm(); ?>
 
             <button class='btn btn-secondary fs-5' type='submit' value='update' name='operation'>Salva</button>
-            <button class="btn btn-outline-danger fs-6" onclick='clearForm()'>Cancella</button>
+            
             </form>
         </div>
 
@@ -70,12 +70,7 @@ if (isset($_SESSION['error_message'])) {
 
     </section>
     <script>
-                    function clearForm() {
-                        var inputs = document.querySelectorAll('input[type=text]');
-                        inputs.forEach(function(input) {
-                            input.value = '';
-                        });
-                    }
+                   
         </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
