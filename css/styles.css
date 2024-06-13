@@ -5,24 +5,30 @@
     font-family: 'Poppins', sans-serif;
 }
 
+body {
+    margin: 0; /* Elimina i margini predefiniti del body */
+}
+
+
 header {
     background-color: #2c56f7;
     color: #fff;
-    padding: 1rem 0;
-    margin: 0 auto;
+    margin: 30px 50px 0 50px; /* Aggiungi margini solo a destra, sinistra e sopra */
+    padding-bottom: 20px; /* Aggiungi padding sotto per allungare l'header */
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    min-height: 100px; 
+    border-radius: 15px;
 }
 
-header .navbar {
+.navbar {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-header h3 {
-    margin: 0;
-    font-weight: 700;
-    font-size: 1.5rem;
-}
 
 header .btn-outline-light {
     border: 2px solid #fff;
@@ -32,7 +38,6 @@ header .btn-outline-light {
 .container-xl {
     max-width: 1140px;
     margin: 0 auto;
-    padding: 0 1rem;
 }
 
 .bg-dark {

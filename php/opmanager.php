@@ -4,9 +4,6 @@ include 'utility.php';
 $conn = connectToDatabase();
 
 
-
-
-
 if (isset($_POST['table'])) {
     $table = $_POST['table'];
     $_SESSION['table'] = $table;

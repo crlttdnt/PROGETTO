@@ -74,7 +74,7 @@ if (isset($_SESSION['error_message'])) {
                 <div class='align-items-center'>
                     <h3 class='fw-bold fs-6 text-uppercase'> Ricovero per paziente 
                     </h3>
-                    <a href='../examples/personalexreparto.php'>
+                    <a href='../examples/ricoveroxpaziente.php'>
                     <button class='btn btn-outline-dark' type='submit'>
                             Vai alla pagina 
                         <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-arrow-up-right' viewBox='0 0 16 16'>
@@ -87,7 +87,7 @@ if (isset($_SESSION['error_message'])) {
                 <div>
                     <h3 class='fw-bold fs-6 text-uppercase'> Sostituzioni primari
                     </h3>
-                    <a href='../examples/personalexreparto.php'>
+                    <a href='../examples/sostituzioniprimari.php'>
                        <button class='btn btn-outline-dark' type='submit'>
                             Vai alla pagina 
                             <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-arrow-up-right' viewBox='0 0 16 16'>
