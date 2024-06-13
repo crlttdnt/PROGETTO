@@ -21,6 +21,7 @@ header .navbar {
 header h3 {
     margin: 0;
     font-weight: 700;
+    font-size: 1.5rem;
 }
 
 header .btn-outline-light {
@@ -51,8 +52,7 @@ section .bg-white {
     padding: 2rem;
     border-radius: 1rem;
     box-shadow: 0 4px 8px rgba(33, 74, 239, 0.489);
-    border: 2px solid #2c56f7; 
-    width: 100%; 
+    border: 2px solid #2c56f7;
 }
 
 .fit-content {
@@ -64,14 +64,14 @@ section .bg-white {
     padding: 0.5rem;
     font-size: 1.2rem;
     border-radius: 0.5rem;
-    border: 1px solid #2c56f7; 
-    margin-bottom: 1rem; 
+    border: 1px solid #2c56f7;
+    margin-bottom: 1rem;
 }
 
 .btn-outline-secondary {
     border-color: #000000;
     color: #000000;
-    width: 150px; 
+    width: 150px;
 }
 
 .btn-outline-secondary:hover {

@@ -2,6 +2,17 @@
 
 CREATE TYPE FasciaUrgenza AS ENUM ('rosso', 'giallo', 'verde');
 
+CREATE TYPE GiornoSettimana AS ENUM 
+	(
+		'Lunedì',
+		'Martedì',
+		'Mercoledì',
+		'Giovedì',
+		'Venerdì',
+		'Sabato',
+		'Domenica'
+	);
+
 CREATE TABLE Ospedale (
     codice INT PRIMARY KEY,
     nomeOspedale VARCHAR(40) NOT NULL,
@@ -11,14 +22,14 @@ CREATE TABLE Ospedale (
     numeroCivico INT NOT NULL
 );
 
-CREATE TABLE GiornoSettimana (nomeGiorno VARCHAR(10) PRIMARY KEY);
+CREATE TABLE GiornoSettimana (GiornoSettimana PRIMARY KEY);
 
 CREATE TABLE Reparto (
     nomeReparto VARCHAR(30),
     codice INT REFERENCES Ospedale (codice) ON UPDATE CASCADE,
     piano INT NOT NULL,
     telefono VARCHAR(20) UNIQUE NOT NULL,
-    nomeGiorno VARCHAR(10) NOT NULL REFERENCES GiornoSettimana (nomeGiorno) ON UPDATE CASCADE,
+    GiornoSettimana GiornoSettimana NOT NULL REFERENCES GiornoSettimana (GiornoSettimana) ON UPDATE CASCADE,
     oraInizioVisita TIME(3) NOT NULL,
     oraFineVisita TIME(3) NOT NULL,
     CHECK (oraFineVisita > oraInizioVisita),
