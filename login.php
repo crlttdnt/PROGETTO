@@ -22,9 +22,9 @@ if (isset($_SESSION['error_message'])) {
 <body>
 <header>
     <!-- Navigation -->
-    <div class="container-xl pt-4">
+    <div class="container-xl pt-3">
         <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
-            <h3 class="m-0 fw-bold text-white">Gestione Aziende Ospedaliere</h3>
+            <h2 class="m-0 fw-bold text-white">Gestione Aziende Ospedaliere</h2>
             <a class="btn btn-outline-light" href="login.php">
                 Login
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
@@ -37,8 +37,8 @@ if (isset($_SESSION['error_message'])) {
 
 
 
-    <section class="container-xl mx-auto" style="padding: 2rem 0;">
-    <div class="mx-auto p-5 rounded-4 shadow fit-content border border-secondary" style="width: 90%;">
+    <section class="container-xl mx-auto" style="padding: 1rem 0;">
+    <div class="bg-white mx-auto p-5 rounded-4 fit-content border border-secondary border-10" style="width: 85%;">
         <h3 class="text-dark fw-bold fs-3 py-1 px-3 text-uppercase text-center">Log In</h3>
         <section class="container row mx-auto">
             <div class="row justify-content-center">

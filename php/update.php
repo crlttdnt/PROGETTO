@@ -26,10 +26,10 @@ if (isset($_SESSION['error_message'])) {
 
 <header>
     <!-- Navigation -->
-    <div class="container-xl pt-4">
+    <div class="container-xl pt-3">
         <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
-            <h3 class="m-0 fw-bold text-white">Gestione Aziende Ospedaliere</h3>
-            <a class="btn btn-outline-light" href="login.php">
+            <h2 class="m-0 fw-bold text-white">Gestione Aziende Ospedaliere</h2>
+            <a class="btn btn-outline-light" href="../login.php">
                 Login
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
                     <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
@@ -40,7 +40,7 @@ if (isset($_SESSION['error_message'])) {
 </header>
 
     <section class="container-xl mx-auto">
-        <div class="bg-white mx-auto p-5 rounded-5 fit-content">
+        <div class="bg-white mx-auto p-5 rounded-4 fit-content border border-secondary border-10">
             <div class='d-flex justify-content-between mb-5 align-items-center'>
                 <h3 class=' fw-bold text-capitalize'> <?php echo $table ?> </h3>
                 <a class='btn btn-outline-secondary me-4 fs-5' href='view.php'> Indietro <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='currentColor' class='bi bi-arrow-left-short' viewBox='0 0 16 16'>

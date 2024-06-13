@@ -15,7 +15,7 @@ INSERT INTO Ospedale (codice, nomeOspedale, città, via, CAP, numeroCivico) VALU
 (4, 'Ospedale San Raffaele', 'Milano', 'Via Cavour', 20121, 10);
 
 
-INSERT INTO Reparto (nomeReparto, codice, piano, telefono, nomeGiorno, oraInizioVisita, oraFineVisita) VALUES
+INSERT INTO Reparto (nomeReparto, codice, piano, telefono, giorno, oraInizioVisita, oraFineVisita) VALUES
 ('Cardiologia', 1, 1, '123456789', 'Lunedì', '09:00:00.000', '12:00:00.000'),
 ('Ortopedia', 1, 2, '123456790','Martedì', 	'10:00:00.000', '13:00:00.000'),
 ('Pediatria', 1, 3, '123456791','Mercoledì', '11:00:00.000', '14:00:00.000'),

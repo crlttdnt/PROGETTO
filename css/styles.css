@@ -92,7 +92,8 @@ a.btn {
     font-size: 1rem;
     border-radius: 0.5rem;
     transition: all 0.3s ease;
-    width: 150px;
+    width: 120px; /* Ridotto leggermente per adattarsi meglio */
+    margin-right: 5px; /* Aggiunto margine per separazione tra bottoni */
 }
 
 a.btn svg {
@@ -112,3 +113,23 @@ a.btn-outline-secondary:hover {
 .border-secondary {
     border-color: #2c56f7 !important;
 }
+
+/* Stili per la tabella */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 0; /* Rimuove il margine inferiore predefinito */
+}
+
+table th, table td {
+    border: 1px solid #0e56ae8c; /* Aggiunge bordi alle celle */
+    padding: 8px;
+    text-align: center; /* Centra il contenuto delle celle */
+}
+
+table th {
+    background-color: #c8dffc;
+    font-weight: bold;
+}
+
+
