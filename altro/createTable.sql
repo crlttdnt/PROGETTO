@@ -2,7 +2,6 @@
 
 CREATE TYPE FasciaUrgenza AS ENUM ('rosso', 'giallo', 'verde');
 
-
 CREATE TABLE Ospedale (
     codice INT PRIMARY KEY,
     nomeOspedale VARCHAR(40) NOT NULL,
@@ -16,14 +15,14 @@ CREATE TABLE GiornoSettimana (nomeGiorno VARCHAR(16) PRIMARY KEY);
 
 CREATE TABLE Reparto (
     nomeReparto VARCHAR(30),
-    codice INT REFERENCES Ospedale (codice) ON UPDATE CASCADE,
+    ospedale INT REFERENCES Ospedale (codice) ON UPDATE CASCADE,
     piano INT NOT NULL,
     telefono VARCHAR(20) UNIQUE NOT NULL,
     giorno VARCHAR(16) NOT NULL REFERENCES GiornoSettimana (nomeGiorno) ON UPDATE CASCADE,
     oraInizioVisita TIME(3) NOT NULL,
     oraFineVisita TIME(3) NOT NULL,
     CHECK (oraFineVisita > oraInizioVisita),
-    PRIMARY KEY (nomeReparto, codice)
+    PRIMARY KEY (nomeReparto, ospedale)
 );
 
 CREATE TABLE Personale (
@@ -37,8 +36,8 @@ CREATE TABLE Personale (
     CAP INT NOT NULL,
     numeroCivico INT NOT NULL,
     nomeReparto VARCHAR(20) NOT NULL,
-    codice INT NOT NULL,
-    FOREIGN KEY (codice, nomeReparto) REFERENCES Reparto (codice, nomeReparto) ON UPDATE CASCADE
+    ospedale INT NOT NULL,
+    FOREIGN KEY (ospedale, nomeReparto) REFERENCES Reparto (ospedale, nomeReparto) ON UPDATE CASCADE
 );
 
 CREATE TABLE PersonaleAmministrativo (
@@ -64,8 +63,8 @@ CREATE TABLE Infermiere (
 CREATE TABLE Primario (
     codiceFiscale CHAR(17) REFERENCES PersonaleMedico (codiceFiscale) ON UPDATE CASCADE,
     nomeReparto VARCHAR(30) NOT NULL,
-    codice INT NOT NULL,
-    FOREIGN KEY (codice, nomeReparto) REFERENCES Reparto (codice, nomeReparto) ON UPDATE CASCADE,
+    ospedale INT NOT NULL,
+    FOREIGN KEY (ospedale, nomeReparto) REFERENCES Reparto (ospedale, nomeReparto) ON UPDATE CASCADE,
     PRIMARY KEY (codiceFiscale)
 );
 
@@ -73,8 +72,8 @@ CREATE TABLE VicePrimario (
     codiceFiscale CHAR(17) REFERENCES PersonaleMedico (codiceFiscale) ON UPDATE CASCADE,
     dataPromozione DATE NOT NULL,
     nomeReparto VARCHAR(30) NOT NULL,
-    codice INT NOT NULL,
-    FOREIGN KEY (codice, nomeReparto) REFERENCES Reparto (codice, nomeReparto) ON UPDATE CASCADE,
+    ospedale INT NOT NULL,
+    FOREIGN KEY (ospedale, nomeReparto) REFERENCES Reparto (ospedale, nomeReparto) ON UPDATE CASCADE,
     PRIMARY KEY (codiceFiscale)
 );
 
@@ -114,11 +113,11 @@ CREATE TABLE PazienteVisita (
 CREATE TABLE Stanza (
     numeroStanza INT,
     nomeReparto VARCHAR(30),
-    codice INT,
+    ospedale INT,
     numeroLettiOccupati INT,
     numeroLettiLiberi INT,
-    FOREIGN KEY (codice, nomeReparto) REFERENCES Reparto (codice, nomeReparto) ON UPDATE CASCADE,
-    PRIMARY KEY (numeroStanza, nomeReparto, codice)
+    FOREIGN KEY (ospedale , nomeReparto) REFERENCES Reparto (ospedale, nomeReparto) ON UPDATE CASCADE,
+    PRIMARY KEY (numeroStanza, nomeReparto, ospedale)
 );
 
 CREATE TABLE PazienteRicoverato (
@@ -127,13 +126,12 @@ CREATE TABLE PazienteRicoverato (
     dataDimissione DATE,
     CHECK (
         dataDimissione IS NULL
-        OR dataDimissione >= dataRicovero
-    ),
+        OR dataDimissione >= dataRicovero),
     numeroStanza INT NOT NULL,
     nomeReparto VARCHAR(30) NOT NULL,
-    codice INT NOT NULL,
-    FOREIGN KEY (codice, nomeReparto) REFERENCES Reparto (codice, nomeReparto) ON UPDATE CASCADE,
-    FOREIGN KEY (numeroStanza, nomeReparto, codice) REFERENCES Stanza (numeroStanza, nomeReparto, codice) ON UPDATE CASCADE,
+    ospedale INT NOT NULL,
+    FOREIGN KEY (ospedale, nomeReparto) REFERENCES Reparto (ospedale, nomeReparto) ON UPDATE CASCADE,
+    FOREIGN KEY (numeroStanza, nomeReparto, ospedale) REFERENCES Stanza (numeroStanza, nomeReparto, ospedale) ON UPDATE CASCADE,
     PRIMARY KEY (codiceFiscale, dataRicovero)
 );
 
@@ -151,22 +149,22 @@ CREATE TABLE Diagnosi (
 CREATE TABLE SalaOperatoria (
     numeroSalaOperatoria INT,
     nomeReparto VARCHAR(30),
-    codice INT,
-    FOREIGN KEY (codice, nomeReparto) REFERENCES Reparto (codice, nomeReparto) ON UPDATE CASCADE,
-    PRIMARY KEY (numeroSalaOperatoria, nomeReparto, codice)
+    ospedale INT,
+    FOREIGN KEY (ospedale, nomeReparto) REFERENCES Reparto (ospedale, nomeReparto) ON UPDATE CASCADE,
+    PRIMARY KEY (numeroSalaOperatoria, nomeReparto, ospedale)
 );
 
 CREATE TABLE LaboratorioInterno (
-    codiceOspedale INT,
+    ospedale  INT,
     numeroStanza INT,
     nomeReparto VARCHAR(30),
-    PRIMARY KEY (codiceOspedale, nomeReparto, numeroStanza),
-    FOREIGN KEY (numeroStanza, nomeReparto, codiceOspedale) REFERENCES Stanza (numeroStanza, nomeReparto, codice) ON UPDATE CASCADE,
-    FOREIGN KEY (codiceOspedale, nomeReparto) REFERENCES Reparto (codice, nomeReparto) ON UPDATE CASCADE
+    PRIMARY KEY (ospedale , nomeReparto, numeroStanza),
+    FOREIGN KEY (numeroStanza, nomeReparto, ospedale ) REFERENCES Stanza (numeroStanza, nomeReparto, ospedale) ON UPDATE CASCADE,
+    FOREIGN KEY (ospedale, nomeReparto) REFERENCES Reparto (ospedale, nomeReparto) ON UPDATE CASCADE
 );
 
 CREATE TABLE LaboratorioEsterno (
-    codice INT PRIMARY KEY,
+    codiceLabEsterno INT PRIMARY KEY,
     città VARCHAR(40) NOT NULL,
     via VARCHAR(40) NOT NULL,
     CAP INT NOT NULL,
@@ -176,7 +174,7 @@ CREATE TABLE LaboratorioEsterno (
 
 CREATE TABLE orarioApertura (
     nomeGiorno VARCHAR(10) REFERENCES GiornoSettimana (nomeGiorno) ON UPDATE CASCADE,
-    codiceLabEsterno INT REFERENCES LaboratorioEsterno (codice) ON UPDATE CASCADE,
+    codiceLabEsterno INT REFERENCES LaboratorioEsterno (codiceLabEsterno) ON UPDATE CASCADE,
     oraApertura TIME(3) NOT NULL,
     oraChiusura TIME(3) NOT NULL,
     CHECK (oraChiusura > oraApertura),
@@ -184,61 +182,55 @@ CREATE TABLE orarioApertura (
 );
 
 CREATE TABLE Esame (
-    codice INT,
-    dataEsame DATE,
-    pazienteVisita CHAR(17) REFERENCES PazienteVisita (codiceFiscale) ON UPDATE CASCADE,
-    dataPrenotazione DATE NOT NULL,
-    CHECK (dataPrenotazione <= dataEsame),
-    urgenza FasciaUrgenza NOT NULL,
+    codiceEsame INT PRIMARY KEY,
     descrizione VARCHAR(80) NOT NULL,
-    oraEsame TIME(3) NOT NULL,
-    codiceOspedale INT,
-    nomeReparto VARCHAR(30),
-    numeroStanza INT,
-    codiceLabEsterno INT REFERENCES LaboratorioEsterno (codice) ON UPDATE CASCADE,
-    PRIMARY KEY (codice, dataEsame, pazienteVisita),
-    FOREIGN KEY (codiceOspedale, nomeReparto, numeroStanza) REFERENCES LaboratorioInterno (codiceOspedale, nomeReparto, numeroStanza) ON UPDATE CASCADE
-);
+costoAssistenza INT NOT NULL,
+costoPrivato INT NOT NULL
+  );
 
 CREATE TABLE EsameSpecialistico (
-    codice INT,
-    dataEsame DATE,
-    pazienteVisita CHAR(17),
+    codiceEsame INT REFERENCES Esame(codiceEsame) ON UPDATE CASCADE,
     avvertenze VARCHAR(100),
-    costoPrivato INT NOT NULL,
-    personaleMedico CHAR(17) REFERENCES PersonaleMedico (codiceFiscale) ON UPDATE CASCADE,
-    FOREIGN KEY (codice, dataEsame, pazienteVisita) REFERENCES Esame (codice, dataEsame, pazienteVisita) ON UPDATE CASCADE,
-    PRIMARY KEY (codice, dataEsame, pazienteVisita)
+    PRIMARY KEY (codiceEsame)
 );
 
-CREATE TABLE EsameNonSpecialistico (
-    codice INT,
-    dataEsame DATE,
-    pazienteVisita CHAR(17),
-    costoAssistenza INT NOT NULL,
-    FOREIGN KEY (codice, dataEsame, pazienteVisita) REFERENCES Esame (codice, dataEsame, pazienteVisita) ON UPDATE CASCADE,
-    PRIMARY KEY (codice, dataEsame, pazienteVisita)
+CREATE TABLE Prenotazione (
+codiceEsame INT REFERENCES Esame(codiceEsame),
+dataOraEsame TIMESTAMP(3),
+pazienteVisita VARCHAR(17),
+dataPrenotazione TIMESTAMP(3) NOT NULL,
+    	CHECK (dataPrenotazione <= dataOraEsame),
+urgenza FasciaUrgenza NOT NULL, 
+numeroStanza INT, 
+nomeReparto VARCHAR(30), 
+ospedale INT, 
+codiceLabEsterno INT REFERENCES LaboratorioEsterno(codiceLabEsterno) ,
+regimePrivato BOOLEAN NOT NULL,
+-- RegimePrivato TRUE = costoPrivato, FALSE = costoAssistenza
+MedicoPrescrittore VARCHAR(17) REFERENCES PersonaleMedico (codiceFiscale),
+PRIMARY KEY(codiceEsame, dataOraEsame, pazientevisita),
+FOREIGN KEY (numeroStanza, nomeReparto, ospedale) REFERENCES Stanza(numeroStanza, nomeReparto, ospedale) ON UPDATE CASCADE
 );
 
-CREATE TABLE collaborazione (
-    codice INT REFERENCES Ospedale (codice) ON UPDATE CASCADE,
-    codiceLabEsterno INT REFERENCES LaboratorioEsterno (codice) ON UPDATE CASCADE,
-    PRIMARY KEY (codice, codiceLabEsterno)
+CREATE TABLE collabora (
+    ospedale INT REFERENCES Ospedale (codice) ON UPDATE CASCADE,
+    codiceLabEsterno INT REFERENCES LaboratorioEsterno (codiceLabEsterno) ON UPDATE CASCADE,
+    PRIMARY KEY (ospedale, codiceLabEsterno)
 );
 
 CREATE TABLE ProntoSoccorso (
-    codice INT REFERENCES Ospedale (codice) ON UPDATE CASCADE,
-    PRIMARY KEY (codice)
+    PS INT REFERENCES Ospedale (codice) ON UPDATE CASCADE,
+    PRIMARY KEY (PS)
 );
 
 CREATE TABLE TurnoPS (
     personaleSanitario CHAR(17) REFERENCES PersonaleSanitario (codiceFiscale) ON UPDATE CASCADE,
-    codice INT REFERENCES Ospedale (codice) ON UPDATE CASCADE,
+    ospedale INT REFERENCES Ospedale (codice) ON UPDATE CASCADE,
     inizioTurno TIMESTAMP(3) NOT NULL,
     fineTurno TIMESTAMP(3),
     CHECK (
         fineTurno IS NULL
         OR fineTurno > inizioTurno
     ),
-    PRIMARY KEY (personaleSanitario, codice, inizioTurno)
+    PRIMARY KEY (personaleSanitario, ospedale, inizioTurno)
 );

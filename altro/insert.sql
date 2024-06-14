@@ -15,7 +15,7 @@ INSERT INTO Ospedale (codice, nomeOspedale, città, via, CAP, numeroCivico) VALU
 (4, 'Ospedale San Raffaele', 'Milano', 'Via Cavour', 20121, 10);
 
 
-INSERT INTO Reparto (nomeReparto, codice, piano, telefono, giorno, oraInizioVisita, oraFineVisita) VALUES
+INSERT INTO Reparto (nomeReparto, ospedale, piano, telefono, giorno, oraInizioVisita, oraFineVisita) VALUES
 ('Cardiologia', 1, 1, '123456789', 'Lunedì', '09:00:00.000', '12:00:00.000'),
 ('Ortopedia', 1, 2, '123456790','Martedì', 	'10:00:00.000', '13:00:00.000'),
 ('Pediatria', 1, 3, '123456791','Mercoledì', '11:00:00.000', '14:00:00.000'),
@@ -30,7 +30,7 @@ INSERT INTO Reparto (nomeReparto, codice, piano, telefono, giorno, oraInizioVisi
 ('Pediatria', 4, 3, '423456791',	'Martedì', '11:00:00.000', '14:00:00.000');
 
 
-INSERT INTO Personale (codiceFiscale, anzianitaServizio, nome, cognome, dataNascita, città, via, CAP, numeroCivico, nomeReparto, codice) VALUES 
+INSERT INTO Personale (codiceFiscale, anzianitaServizio, nome, cognome, dataNascita, città, via, CAP, numeroCivico, nomeReparto, ospedale) VALUES 
 ('RSSMRA85M01H501Z', 10, 'Mario', 'Rossi', '1985-01-01', 'Milano', 'Via Roma', 20121, 1, 'Cardiologia', 1),
 ('BNCLRA90E15F205W', 5, 'Laura', 'Bianchi', '1990-05-15', 'Milano', 'Via Dante', 20121, 2, 'Ortopedia', 1),
 ('VRDGPP92S20H501Y', 3, 'Giuseppe', 'Verdi', '1992-11-20', 'Milano', 'Via Manzoni', 20121, 3, 'Pediatria', 1),
@@ -100,7 +100,7 @@ INSERT INTO Infermiere (codiceFiscale) VALUES
 ('NCLLRA86E15F205X');
 
 
-INSERT INTO Primario (codiceFiscale, nomeReparto, codice) VALUES 
+INSERT INTO Primario (codiceFiscale, nomeReparto, ospedale) VALUES 
 ('BNCGLR95T20F205Q', 'Cardiologia', 1),
 ('RSSGRL87C01F205A', 'Ortopedia', 2),
 ('NCLLRA88E15F205B', 'Pediatria', 3),
@@ -108,7 +108,7 @@ INSERT INTO Primario (codiceFiscale, nomeReparto, codice) VALUES
 ('FRNLRA89A01F205J', 'Ortopedia', 1);
 
 
-INSERT INTO VicePrimario (codiceFiscale, dataPromozione, nomeReparto, codice) VALUES 
+INSERT INTO VicePrimario (codiceFiscale, dataPromozione, nomeReparto, ospedale) VALUES 
 ('MNLGRL91E15F205M', '2020-01-01', 'Pediatria', 2),
 ('BNCGLR96T20F205P', '2019-06-15', 'Cardiologia', 3),
 ('RSSMRA81M01H501L', '2021-09-10', 'Ortopedia', 4),
@@ -181,7 +181,7 @@ INSERT INTO PazienteVisita (codiceFiscale) VALUES
 ('PZNT0010X01A123B');
 
 
-INSERT INTO Stanza (numeroStanza, nomeReparto, codice, numeroLettiOccupati, numeroLettiLiberi) VALUES 
+INSERT INTO Stanza (numeroStanza, nomeReparto, ospedale, numeroLettiOccupati, numeroLettiLiberi) VALUES 
 (1, 'Cardiologia', 1, 2, 2),
 (2, 'Ortopedia', 2, 1, 3),
 (3, 'Pediatria', 3, 3, 1),
@@ -197,7 +197,7 @@ INSERT INTO Stanza (numeroStanza, nomeReparto, codice, numeroLettiOccupati, nume
 (13, 'Cardiologia', 1, NULL, NULL);
 
 
-INSERT INTO PazienteRicoverato (codiceFiscale, dataRicovero, dataDimissione, numeroStanza, nomeReparto, codice) VALUES 
+INSERT INTO PazienteRicoverato (codiceFiscale, dataRicovero, dataDimissione, numeroStanza, nomeReparto, ospedale) VALUES 
 ('PZNT0011X01A123B', '2023-01-01', '2023-01-05' , 1, 'Cardiologia', 1),
 ('PZNT0012X01A123B', '2023-01-02', NULL, 2, 'Ortopedia', 2),
 ('PZNT0013X01A123B', '2023-01-03', NULL, 3, 'Pediatria', 3),
@@ -236,7 +236,7 @@ INSERT INTO Diagnosi (codiceFiscale, dataRicovero, descrizione) VALUES
 ('PZNT0020X01A123B', '2023-01-10', 'Ipertensione arteriosa');
 
 
-INSERT INTO SalaOperatoria (numeroSalaOperatoria, nomeReparto, codice) VALUES 
+INSERT INTO SalaOperatoria (numeroSalaOperatoria, nomeReparto, ospedale) VALUES 
 (1, 'Cardiologia', 1),
 (2, 'Ortopedia', 1),
 (3, 'Pediatria', 1),
@@ -251,13 +251,13 @@ INSERT INTO SalaOperatoria (numeroSalaOperatoria, nomeReparto, codice) VALUES
 (3, 'Pediatria', 4);
 
 
-INSERT INTO LaboratorioInterno (codiceOspedale, numeroStanza, nomeReparto) VALUES 
+INSERT INTO LaboratorioInterno (ospedale, numeroStanza, nomeReparto) VALUES 
 (1, 13, 'Cardiologia'),
 (1, 11, 'Ortopedia'),
 (1, 12, 'Pediatria');
 
 
-INSERT INTO LaboratorioEsterno (codice, città, via, CAP, numeroCivico, telefono) VALUES
+INSERT INTO LaboratorioEsterno (codiceLabEsterno, città, via, CAP, numeroCivico, telefono) VALUES
 (1, 'Bergamo', 'Via Bonomelli', 24121, 1, '987654342'),
 (2, 'Brescia', 'Via dei Mille', 25122, 2, '987765436'),
 (3, 'Como', 'Via Milano', 22100, 3, '958765432'),
@@ -294,31 +294,29 @@ INSERT INTO orarioApertura (nomeGiorno, codiceLabEsterno, oraApertura, oraChiusu
 ('Domenica', 3, '07:00:00.000', '20:00:00.000');
 
 
-INSERT INTO Esame (codice, dataEsame, pazienteVisita, dataPrenotazione, urgenza, descrizione, oraEsame, codiceOspedale, nomeReparto, numeroStanza, codiceLabEsterno) VALUES
-(1, '2024-06-01', 'PZNT0001X01A123B', '2024-05-20', 'verde', 'Visita Ginecologica', '10:00:00', 1, 'Cardiologia', 13, NULL),
-(2, '2024-06-02', 'PZNT0002X01A123B', '2024-05-21', 'giallo', 'Esame del Sangue', '11:00:00', 1, 'Ortopedia', 11, NULL),
-(3, '2024-06-03', 'PZNT0003X01A123B', '2024-05-22', 'rosso', 'Risonanza Magnetica', '12:00:00', 1, 'Pediatria', 12, NULL),
-(4, '2024-06-04', 'PZNT0004X01A123B', '2024-05-23', 'verde', 'Ecografia', '09:00:00', 1, 'Cardiologia', 13, NULL),
-(5, '2024-06-05', 'PZNT0005X01A123B', '2024-05-24', 'giallo', 'Visita Cardiologica', '10:30:00', 1, 'Ortopedia', 11, NULL);
+INSERT INTO Esame (codiceEsame, descrizione, costoPrivato, costoAssistenza) VALUES
+(1, 'Visita Ginecologica', 150, 100),
+(2, 'Esame del Sangue', 100, 70),
+(3, 'Risonanza Magnetica', 200, 150),
+(4, 'Ecografia', 120, 90),
+(5, 'Visita Cardiologica', 160, 110);
+
+INSERT INTO EsameSpecialistico (codiceEsame, avvertenze) VALUES
+(1,  'Presentarsi a digiuno'),
+(2,  'Bere molta acqua'),
+(3,  'Non bere caffè'),
+(4, 'Evitare cibi grassi'),
+(5, 'Non fumare');
 
 
-INSERT INTO EsameSpecialistico (codice, dataEsame, pazienteVisita, avvertenze, costoPrivato, personaleMedico) VALUES
-(1, '2024-06-01', 'PZNT0001X01A123B', 'Presentarsi a digiuno', 150, 'BNCGLR95T20F205Q'),
-(2, '2024-06-02', 'PZNT0002X01A123B', 'Bere molta acqua', 100, 'RSSGRL87C01F205A'),
-(3, '2024-06-03', 'PZNT0003X01A123B', 'Non bere caffè', 200, 'NCLLRA88E15F205B'),
-(4, '2024-06-04', 'PZNT0004X01A123B', 'Evitare cibi grassi', 120, 'VRDGPP90S20H501D'),
-(5, '2024-06-05', 'PZNT0005X01A123B', 'Non fumare', 160, 'FRNLRA89A01F205J');
+INSERT INTO Prenotazione(codiceEsame, DataOraEsame, Pazientevisita, dataPrenotazione, urgenza, numeroStanza, nomereparto, ospedale, codiceLabEsterno, RegimePrivato, MedicoPrescrittore) VALUES
+(1, '2024-06-01', 'PZNT0001X01A123B', '2024-05-20', 'verde', 13, 'Cardiologia', 1, NULL, TRUE, 'BNCGLR95T20F205Q'),
+(2, '2024-06-02', 'PZNT0002X01A123B', '2024-05-21', 'giallo', 11, 'Ortopedia', 1, NULL, FALSE, NULL),
+(3, '2024-06-03', 'PZNT0003X01A123B', '2024-05-22', 'rosso', 12, 'Pediatria', 1, NULL, TRUE, 'RSSGRL87C01F205A'),
+(4, '2024-06-04', 'PZNT0004X01A123B', '2024-05-23', 'verde', 13, 'Cardiologia', 1, NULL, FALSE, NULL),
+(5, '2024-06-05', 'PZNT0005X01A123B', '2024-05-24', 'giallo', NULL , NULL, NULL , 1, TRUE, 'NCLLRA88E15F205B');
 
-
-INSERT INTO EsameNonSpecialistico (codice, dataEsame, pazienteVisita, costoAssistenza) VALUES
-(1, '2024-06-01', 'PZNT0001X01A123B', 100),
-(2, '2024-06-02', 'PZNT0002X01A123B', 70),
-(3, '2024-06-03', 'PZNT0003X01A123B', 150),
-(4, '2024-06-04', 'PZNT0004X01A123B', 90),
-(5, '2024-06-05', 'PZNT0005X01A123B', 110);
-
-
-INSERT INTO collaborazione (codice, codiceLabEsterno) VALUES
+INSERT INTO collabora (ospedale, codiceLabEsterno) VALUES
 (1, 1),
 (1, 2),
 (2, 3),
@@ -327,12 +325,12 @@ INSERT INTO collaborazione (codice, codiceLabEsterno) VALUES
 (3, 6);
 
 
-INSERT INTO ProntoSoccorso (codice) VALUES
+INSERT INTO ProntoSoccorso (PS) VALUES
 (1),
 (3);
 
 
-INSERT INTO TurnoPS (personaleSanitario, codice, inizioTurno, fineTurno) VALUES
+INSERT INTO TurnoPS (personaleSanitario, ospedale, inizioTurno, fineTurno) VALUES
 ('BNCGLR95T20F205Q', 1, '2024-06-01 08:00:00', '2024-06-01 14:00:00'),
 ('RSSGRL87C01F205A', 1, '2024-06-01 14:00:00', '2024-06-01 20:00:00'),
 ('NCLLRA88E15F205B', 2, '2024-06-01 08:00:00', '2024-06-01 14:00:00'),
