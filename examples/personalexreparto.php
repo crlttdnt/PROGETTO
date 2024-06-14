@@ -18,13 +18,13 @@ if (isset($_SESSION['error_message'])) {
 }
 
 $selectedReparto = null;
-$selectedCodice = null;
-if (isset($_POST['RepartoCodice'])) {
-    if ($_POST['RepartoCodice'] === "all") {
+$selectedOspedale = null;
+if (isset($_POST['RepartoOspedale'])) {
+    if ($_POST['RepartoOspedale'] === "all") {
         $selectedReparto = "Tutti i reparti";
-        $selectedCodice = "Tutti gli ospedali";
+        $selectedOspedale = "Tutti gli ospedali";
     } else {
-        list($selectedReparto, $selectedCodice) = explode(',', $_POST['RepartoCodice']);
+        list($selectedReparto, $selectedOspedale) = explode(',', $_POST['RepartoOspedale']);
     }
 }
 ?>
@@ -60,7 +60,7 @@ if (isset($_POST['RepartoCodice'])) {
             <h5 class='fw-medium'>Visualizza il personale organico nei reparti della struttura:</h5>
             <form method="POST" class="w-100" action="personalexreparto.php">
                 <div class='d-flex justify-content-end align-items-center'>
-                    <?php showSelect($selectedReparto, $selectedCodice); ?>
+                    <?php showSelect($selectedReparto, $selectedOspedale); ?>
                     <button class="btn btn-secondary btn-lg ms-3 h-100" type="submit">Visualizza</button>
                 </div>
             </form>
@@ -77,9 +77,9 @@ if (isset($_POST['RepartoCodice'])) {
                 -->
             </div>
             <?php
-            if ($selectedReparto && $selectedCodice) {
-                echo "<p>Personale del reparto " . htmlspecialchars($selectedReparto) . " dell'Ospedale " . htmlspecialchars($selectedCodice) . ":</p>";
-                showTable($selectedReparto, $selectedCodice);
+            if ($selectedReparto && $selectedOspedale) {
+                echo "<p>Personale del reparto " . htmlspecialchars($selectedReparto) . " dell'Ospedale " . htmlspecialchars($selectedOspedale) . ":</p>";
+                showTable($selectedReparto, $selectedOspedale);
             }
             ?>
         </div>
@@ -95,16 +95,16 @@ if (isset($_POST['RepartoCodice'])) {
 
 
 <?php
-function showTable($nomeReparto, $codice)
+function showTable($nomeReparto, $ospedale)
 {
     $conn = connectToDatabase();
 
-    if ($nomeReparto === "Tutti i reparti" && $codice === "Tutti gli ospedali") {
-        $query = "SELECT codiceFiscale, nome, cognome, nomeReparto, codice FROM Personale";
+    if ($nomeReparto === "Tutti i reparti" && $ospedale === "Tutti gli ospedali") {
+        $query = "SELECT codiceFiscale, nome, cognome, nomeReparto, ospedale FROM Personale";
         $results = pg_query($conn, $query);
     } else {
-        $query = "SELECT codiceFiscale, nome, cognome FROM Personale WHERE nomeReparto = $1 AND codice = $2";
-        $results = pg_query_params($conn, $query, array($nomeReparto, $codice));
+        $query = "SELECT codiceFiscale, nome, cognome FROM Personale WHERE nomeReparto = $1 AND ospedale = $2";
+        $results = pg_query_params($conn, $query, array($nomeReparto, $ospedale));
     }
 
     if (!$results) {
@@ -132,12 +132,12 @@ function showTable($nomeReparto, $codice)
     pg_close($conn);
 }
 
-function showSelect($selectedReparto, $selectedCodice)
+function showSelect($selectedReparto, $selectedOspedale)
 {
     $conn = connectToDatabase();
-    $query = "SELECT DISTINCT nomeReparto, codice FROM Personale";
-    $string = "<select class='form-select' name='RepartoCodice'>";
-    $string .= "<option value='' disabled selected>Seleziona Reparto e Codice</option>";
+    $query = "SELECT DISTINCT nomeReparto, ospedale FROM Personale";
+    $string = "<select class='form-select' name='RepartoOspedale'>";
+    $string .= "<option value='' disabled selected>Seleziona Reparto e Ospedale</option>";
     $string .= "<option value='all'>Tutti i reparti</option>";
     $options = "";
 
@@ -149,9 +149,9 @@ function showSelect($selectedReparto, $selectedCodice)
 
         while ($row = pg_fetch_assoc($result)) {
             $reparto = htmlspecialchars($row['nomereparto']);
-            $codice = htmlspecialchars($row['codice']);
-            $isSelected = ($selectedReparto === $reparto && $selectedCodice == $codice) ? " selected" : "";
-            $options .= "<option value='{$reparto},{$codice}'{$isSelected}>Reparto: {$reparto}, Codice: {$codice}</option>";
+            $ospedale = htmlspecialchars($row['ospedale']);
+            $isSelected = ($selectedReparto === $reparto && $selectedOspedale == $ospedale) ? " selected" : "";
+            $options .= "<option value='{$reparto},{$ospedale}'{$isSelected}>Reparto: {$reparto}, Codice Ospedale: {$ospedale}</option>";
         }
     } catch (Exception $e) {
         $_SESSION['error_message'] = $e->getMessage();
