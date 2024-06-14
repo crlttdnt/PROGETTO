@@ -128,9 +128,6 @@ function showTable($pazientericoverato)
     echo buildTable($resultData, $columns);
 }
 
-
-
-
     function showSelect($selected)
     {
         $conn = connectToDatabase();
