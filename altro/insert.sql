@@ -50,6 +50,7 @@ INSERT INTO Personale (codiceFiscale, anzianitaServizio, nome, cognome, dataNasc
 ('MRNLRA84E15C712N', 14, 'Simone', 'Marino', '1984-05-15', 'Monza', 'Via San Siro', 20900, 11, 'Ortopedia', 3),
 ('BNCGLR91T20F205K', 5, 'Chiara', 'Bianchi', '1991-11-20', 'Monza', 'Via Rovani', 20900, 12, 'Pediatria', 3),
 ('RSSGRL80C01F205D', 15, 'Clara', 'Rossi', '1980-03-01', 'Milano', 'Via Lorenteggio', 20121, 13, 'Cardiologia', 1),
+('LLLMNO85D11H123W', 2, 'Leandro', 'Lambruschini', '1998-12-15', 'Milano', 'Via delle Rose', 20121, 7, 'Cardiologia', 1),
 ('NCLLRA86E15F205X', 6, 'Fabio', 'Neri', '1986-05-15', 'Milano', 'Via Savona', 20121, 14, 'Ortopedia', 1);
 
 
@@ -76,6 +77,7 @@ INSERT INTO PersonaleSanitario (codiceFiscale) VALUES
 ('MRNLRA84E15C712N'),
 ('BNCGLR91T20F205K'),
 ('RSSGRL80C01F205D'),
+('LLLMNO85D11H123W'),
 ('NCLLRA86E15F205X');
 
 
@@ -113,6 +115,7 @@ INSERT INTO VicePrimario (codiceFiscale, dataPromozione, nomeReparto, ospedale) 
 ('BNCGLR96T20F205P', '2019-06-15', 'Cardiologia', 3),
 ('RSSMRA81M01H501L', '2021-09-10', 'Ortopedia', 4),
 ('BNCLRA82E15F205G', '2022-03-05', 'Pediatria', 1),
+('LLLMNO85D11H123W', '2024-04-15', 'Cardiologia', 1),
 ('VRDGPP85S20H501E', '2018-11-20', 'Cardiologia', 2);
 
 
@@ -139,6 +142,7 @@ INSERT INTO qualifica (codiceFiscale, nome) VALUES
 
 INSERT INTO sostituisce (Primario, VicePrimario, inizioSostituzione, fineSostituzione) VALUES 
 ('BNCGLR95T20F205Q', 'MNLGRL91E15F205M', '2023-01-01', '2023-01-15'),
+('BNCGLR95T20F205Q', 'MNLGRL91E15F205M', '2024-06-05', '2024-06-14'),
 ('RSSGRL87C01F205A', 'BNCGLR96T20F205P', '2023-02-01', '2023-02-15'),
 ('NCLLRA88E15F205B', 'RSSMRA81M01H501L', '2023-03-01', '2023-03-15'),
 ('VRDGPP90S20H501D', 'BNCLRA82E15F205G', '2023-04-01', '2023-04-15'),
