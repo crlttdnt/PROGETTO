@@ -45,7 +45,7 @@ if (isset($_SESSION['error_message'])) {
                 <div class="col-md-5 my-4 mx-2 border rounded mb-4 login-card">
                 <h4 class="m-0 p-0 fw-medium text-center" style="margin-top: 20px !important;">Accesso Dipendente</h4>
                     <div class="mt-3">
-                        <form action="opmanager.php" method="POST" class="styled-form">
+                        <form action="php/opmanager.php" method="POST" class="styled-form">
                             <input type="hidden" name="operation" value="login-worker">
                             <div class="mb-3">
                                 <label for="codiceFiscaleDipendente" class="form-label">Codice Fiscale</label>
@@ -65,7 +65,7 @@ if (isset($_SESSION['error_message'])) {
                 <div class="col-md-5 my-4 mx-2 border rounded mb-4 login-card">
                 <h4 class="m-0 p-0 fw-medium text-center" style="margin-top: 20px !important;">Accesso Paziente</h4>
                     <div class="mt-3">
-                        <form action="opmanager.php" method="POST" class="styled-form">
+                        <form action="php/opmanager.php" method="POST" class="styled-form">
                             <input type="hidden" name="operation" value="login-patient">
                             <div class="mb-3">
                                 <label for="codiceFiscalePaziente" class="form-label">Codice Fiscale</label>

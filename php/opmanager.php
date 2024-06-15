@@ -36,12 +36,18 @@ switch ($operation) {
         deleteFromDatabase($conn, $table);
         break;
     case 'login-patient':
-        $codiceFiscale = $_POST['codiceFiscalePaziente'];
-        loginPatient($conn, $codiceFiscale);
+        $user = $_POST['codiceFiscalePaziente'];
+        loginPatient($conn, $user);
         break;
     case 'login-worker':
-        $codiceFiscale = $_POST['codiceFiscaleDipendente'];
-        loginWorker($conn, $codiceFiscale);
+        $user = $_POST['codiceFiscaleDipendente'];
+        loginWorker($conn, $user);
+        break;
+    case 'logout':
+        break;
+    case 'select-table':
+        $_SESSION['table'] = strtolower($_POST['select']);
+        header("Location: /PROGETTO/php/view.php");
         break;
 }
 
@@ -79,10 +85,10 @@ function insertIntoDatabase($conn, $table, $attributes, $values)
             throw new Exception(pg_last_error($conn));
         }
         
+        header("Location: /PROGETTO/php/view.php?table={$table}");
     } catch (Exception $e) {
         $_SESSION['inserted_data'] = $_POST;
         $_SESSION['error_message'] = $e->getMessage();
-
         header("Location:/PROGETTO/php/insert.php");
         exit();
     }
@@ -93,7 +99,7 @@ function updateIntoDatabase($conn, $table, $values)
     $primaryKeys = getPrimaryKeys($conn, $table);
     $editCondition = "";
     $setValues = "";
-
+    
     foreach ($values as $key => $value) {
         if (!$value) continue;
         if (in_array(strtolower($key), $primaryKeys)) {
@@ -107,12 +113,14 @@ function updateIntoDatabase($conn, $table, $values)
     $setValues = rtrim($setValues, ", ");
 
     $query = "UPDATE {$table} SET {$setValues} WHERE {$editCondition}";
-
+    
     try {
         $results = pg_query($conn, $query);
         if (!$results) {
             throw new Exception(pg_last_error($conn));
         }
+        
+        header("Location: /PROGETTO/php/view.php?table={$table}");
     } catch (Exception $e) {
         $_SESSION['error_message'] = $e -> getMessage();
         header("Location:/PROGETTO/php/update.php");
@@ -120,18 +128,18 @@ function updateIntoDatabase($conn, $table, $values)
     }
 }
 
-function loginPatient($conn, $codiceFiscale)
-{
-    $query = "SELECT * FROM paziente WHERE codiceFiscale = '{$codiceFiscale}'";
-    
+function loginPatient($conn, $user) {
+    $query = "SELECT * FROM paziente WHERE codiceFiscale = '{$user}'";
+
     try {
         $result = pg_query($conn, $query);
         if (!$result || pg_num_rows($result) === 0) {
             throw new Exception("Codice fiscale non valido per il login paziente.");
         } else {
             $_SESSION['user_type'] = 'patient';
-            $_SESSION['codice_fiscale'] = $codiceFiscale;
-            header("Location: /PROGETTO/php/ricoveroxpaziente.php");
+            $_SESSION['codice_fiscale'] = $user;
+            header("Location: /PROGETTO/examples/ricoveroxpaziente.php"); // Rindirizza alla pagina ricoveroxpaziente.php dopo il login del paziente
+            exit();
         }
     } catch (Exception $e) {
         $_SESSION['error_message'] = $e->getMessage();
@@ -140,9 +148,9 @@ function loginPatient($conn, $codiceFiscale)
     }
 }
 
-function loginWorker($conn, $codiceFiscale)
-{
-    $query = "SELECT * FROM personale WHERE codiceFiscale = '{$codiceFiscale}'";
+
+function loginWorker($conn, $user) {
+    $query = "SELECT * FROM personale WHERE codiceFiscale = '{$user}'";
     
     try {
         $result = pg_query($conn, $query);
@@ -150,8 +158,9 @@ function loginWorker($conn, $codiceFiscale)
             throw new Exception("Codice fiscale non valido per il login dipendente.");
         } else {
             $_SESSION['user_type'] = 'worker';
-            $_SESSION['codice_fiscale'] = $codiceFiscale;
-            header("Location: /PROGETTO/php/view.php"); // Rindirizza alla pagina view.php
+            $_SESSION['codice_fiscale'] = $user;
+            header("Location: /PROGETTO/php/view.php"); // Rindirizza alla pagina view.php dopo il login dipendente
+            exit();
         }
     } catch (Exception $e) {
         $_SESSION['error_message'] = $e->getMessage();
@@ -160,9 +169,7 @@ function loginWorker($conn, $codiceFiscale)
     }
 }
 
-
-function parsePostValues()
-{
+function parsePostValues() {
     unset($_POST['operation']);
     unset($_POST['table']);
 
@@ -170,6 +177,7 @@ function parsePostValues()
 
     foreach ($_POST as $k => $v) {
         $ks = explode(",_", $k);
+        
         if (count($ks) > 1) {
             $vs = explode(",", $v);
         } else {
@@ -188,4 +196,5 @@ function parsePostValues()
     }
     return $attributes;
 }
+
 ?>
