@@ -1,6 +1,6 @@
-- FATTOOOO sostituzione primari
-- log in
-- documentazione
-- diagramma di flusso del sostituzione
-- consegnare il file con le 3 query
-- FATTOOO aggiungere un viceprimario che non sostituisce e uno che sostituisce due volte o più
+- FATTO - sostituzione primari
+- log in FINIRE ANCORA
+- documentazione 
+- diagramma di flusso del sito
+- FATTO - file con le 3 query
+- FATTO -aggiungere un viceprimario che non sostituisce e uno che sostituisce due volte o più
