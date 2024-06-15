@@ -95,20 +95,32 @@ function showTable($numSostituzioni)
 
     switch ($numSostituzioni) {
         case 'none':
-            $query = " SELECT codiceFiscale AS VicePrimario
-                        FROM VicePrimario
-                        EXCEPT
-                        SELECT VicePrimario
-                        FROM sostituisce;";
+            $query = "SELECT vp.codiceFiscale AS VicePrimario, p.nome, p.cognome
+                      FROM VicePrimario vp
+                      JOIN PersonaleMedico pm ON vp.codiceFiscale = pm.codiceFiscale
+                      JOIN Personale p ON pm.codiceFiscale = p.codiceFiscale
+                      EXCEPT
+                      SELECT s.VicePrimario, p.nome, p.cognome
+                      FROM sostituisce s
+                      JOIN PersonaleMedico pm ON s.VicePrimario = pm.codiceFiscale
+                      JOIN Personale p ON pm.codiceFiscale = p.codiceFiscale";
             break;
         case 'one':
-            $query = "SELECT VicePrimario FROM sostituisce 
-                      GROUP BY VicePrimario 
+            $query = "SELECT vp.codiceFiscale AS VicePrimario, p.nome, p.cognome
+                      FROM sostituisce s
+                      JOIN VicePrimario vp ON s.VicePrimario = vp.codiceFiscale
+                      JOIN PersonaleMedico pm ON s.VicePrimario = pm.codiceFiscale
+                      JOIN Personale p ON pm.codiceFiscale = p.codiceFiscale
+                      GROUP BY vp.codiceFiscale, p.nome, p.cognome
                       HAVING COUNT(*) = 1";
             break;
         case 'two_or_more':
-            $query = "SELECT VicePrimario FROM sostituisce 
-                      GROUP BY VicePrimario 
+            $query = "SELECT vp.codiceFiscale AS VicePrimario, p.nome, p.cognome
+                      FROM sostituisce s
+                      JOIN VicePrimario vp ON s.VicePrimario = vp.codiceFiscale
+                      JOIN PersonaleMedico pm ON s.VicePrimario = pm.codiceFiscale
+                      JOIN Personale p ON pm.codiceFiscale = p.codiceFiscale
+                      GROUP BY vp.codiceFiscale, p.nome, p.cognome
                       HAVING COUNT(*) >= 2";
             break;
         default:
@@ -129,11 +141,13 @@ function showTable($numSostituzioni)
 
     if ($rowCount > 0) {
         echo "<table class='table'>";
-        echo "<thead><tr><th>VicePrimario</th></tr></thead>";
+        echo "<thead><tr><th>VicePrimario</th><th>Nome</th><th>Cognome</th></tr></thead>";
         echo "<tbody>";
         while ($row = pg_fetch_assoc($results)) {
             echo "<tr>";
             echo "<td>" . htmlspecialchars($row['viceprimario']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['nome']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['cognome']) . "</td>";
             echo "</tr>";
         }
         echo "</tbody></table>";
@@ -143,6 +157,7 @@ function showTable($numSostituzioni)
 
     pg_close($conn);
 }
+
 
 
 function showSelect($selectedOption)

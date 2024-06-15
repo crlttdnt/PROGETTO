@@ -1,6 +1,6 @@
-- sostituzione primari
+- FATTOOOO sostituzione primari
 - log in
 - documentazione
 - diagramma di flusso del sostituzione
 - consegnare il file con le 3 query
-- aggiungere un viceprimario che non sostituisce e uno che sostituisce due volte o più
+- FATTOOO aggiungere un viceprimario che non sostituisce e uno che sostituisce due volte o più

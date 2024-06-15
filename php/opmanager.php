@@ -3,7 +3,6 @@ session_start();
 include 'utility.php';
 $conn = connectToDatabase();
 
-
 if (isset($_POST['table'])) {
     $table = $_POST['table'];
     $_SESSION['table'] = $table;
@@ -13,8 +12,6 @@ if (isset($_POST['table'])) {
 
 $operation = strtolower($_POST['operation']);
 $attributes = parsePostValues();
-
-
 
 switch ($operation) {
     case 'edit':
@@ -39,25 +36,14 @@ switch ($operation) {
         deleteFromDatabase($conn, $table);
         break;
     case 'login-patient':
-        $user = $_POST['username'];
-        $password = $_POST['password'];
-        loginPatient($conn, $user, $password);
+        $codiceFiscale = $_POST['codiceFiscalePaziente'];
+        loginPatient($conn, $codiceFiscale);
         break;
     case 'login-worker':
-        $user = $_POST['username'];
-        $password = $_POST['password'];
-        loginWorker($conn, $user, $password);
+        $codiceFiscale = $_POST['codiceFiscaleDipendente'];
+        loginWorker($conn, $codiceFiscale);
         break;
-    case 'logout':
-        break;
-    case 'select-table':
-        $_SESSION['table'] = strtolower($_POST['select']);
-        header("Location: /PROGETTO/php/view.php");
-        break;
-
 }
-
-
 
 function deleteFromDatabase($conn, $table)
 {
@@ -80,14 +66,10 @@ function deleteFromDatabase($conn, $table)
         header("Location: /PROGETTO/php/view.php");
         exit();
     }
-    
 }
-
-
 
 function insertIntoDatabase($conn, $table, $attributes, $values)
 {
-
     $query = "INSERT INTO {$table} ({$attributes}) VALUES ({$values});";
     
     try {
@@ -98,7 +80,6 @@ function insertIntoDatabase($conn, $table, $attributes, $values)
         }
         
     } catch (Exception $e) {
-
         $_SESSION['inserted_data'] = $_POST;
         $_SESSION['error_message'] = $e->getMessage();
 
@@ -107,17 +88,11 @@ function insertIntoDatabase($conn, $table, $attributes, $values)
     }
 }
 
-
-
-
 function updateIntoDatabase($conn, $table, $values)
 {
     $primaryKeys = getPrimaryKeys($conn, $table);
     $editCondition = "";
     $setValues = "";
-    foreach ($values as $key => $value) {
-        echo $key . '<br>';
-    }
 
     foreach ($values as $key => $value) {
         if (!$value) continue;
@@ -132,7 +107,6 @@ function updateIntoDatabase($conn, $table, $values)
     $setValues = rtrim($setValues, ", ");
 
     $query = "UPDATE {$table} SET {$setValues} WHERE {$editCondition}";
-    echo $query;
 
     try {
         $results = pg_query($conn, $query);
@@ -146,37 +120,62 @@ function updateIntoDatabase($conn, $table, $values)
     }
 }
 
-function loginPatient($conn, $user, $password) {
-
+function loginPatient($conn, $codiceFiscale)
+{
+    $query = "SELECT * FROM paziente WHERE codiceFiscale = '{$codiceFiscale}'";
+    
+    try {
+        $result = pg_query($conn, $query);
+        if (!$result || pg_num_rows($result) === 0) {
+            throw new Exception("Codice fiscale non valido per il login paziente.");
+        } else {
+            $_SESSION['user_type'] = 'patient';
+            $_SESSION['codice_fiscale'] = $codiceFiscale;
+            header("Location: /PROGETTO/php/ricoveroxpaziente.php");
+        }
+    } catch (Exception $e) {
+        $_SESSION['error_message'] = $e->getMessage();
+        header("Location: /PROGETTO/php/login.php");
+        exit();
+    }
 }
 
-function loginWorker($conn, $user, $password) {
-
+function loginWorker($conn, $codiceFiscale)
+{
+    $query = "SELECT * FROM personale WHERE codiceFiscale = '{$codiceFiscale}'";
+    
+    try {
+        $result = pg_query($conn, $query);
+        if (!$result || pg_num_rows($result) === 0) {
+            throw new Exception("Codice fiscale non valido per il login dipendente.");
+        } else {
+            $_SESSION['user_type'] = 'worker';
+            $_SESSION['codice_fiscale'] = $codiceFiscale;
+            header("Location: /PROGETTO/php/view.php"); // Rindirizza alla pagina view.php
+        }
+    } catch (Exception $e) {
+        $_SESSION['error_message'] = $e->getMessage();
+        header("Location: /PROGETTO/php/login.php");
+        exit();
+    }
 }
 
 
-
-
-
-function parsePostValues() {
+function parsePostValues()
+{
     unset($_POST['operation']);
     unset($_POST['table']);
 
     $attributes = array();
 
-   
     foreach ($_POST as $k => $v) {
-       
         $ks = explode(",_", $k);
-        
-        
         if (count($ks) > 1) {
             $vs = explode(",", $v);
         } else {
             $vs = array($v);
         }
 
-        
         foreach ($ks as $index => $key) {
             $value = $vs[$index];
 
@@ -189,5 +188,4 @@ function parsePostValues() {
     }
     return $attributes;
 }
-
-
+?>
