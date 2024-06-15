@@ -75,16 +75,13 @@ function buildInputField($connection, $column_data, $editable = true, $value = N
     $name = ucfirst($column_data['column_name']);
     $field_type = $column_data['udt_name'];
 
-    if (stristr($name, "hashed")) {
-        $name = str_ireplace("hashed", "Plaintext", $name);
-        return inputPassword($name, $column_data['is_nullable'] == 'NO', $editable, $value);
-    }
     switch ($field_type) {
         case 'bpchar':
             return inputText($name, $column_data['is_nullable'] == 'NO', $editable, $value);
         case 'varchar':
             return inputText($name, $column_data['is_nullable'] == 'NO', $editable, $value);
-        case 'numeric':
+        case 'numeric' : 
+        case 'int4':
             return inputNumber($name, $column_data['is_nullable'] == 'NO', $editable, $value);
         case 'date':
             return inputDate($name, $column_data['is_nullable'] == 'NO', $editable, $value);
@@ -125,6 +122,7 @@ function getValue($value)
 {
     return ($value) ? "value='{$value}'" : "";
 }
+
 
 function inputText($name, $required, $editable, $value)
 {

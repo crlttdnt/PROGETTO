@@ -21,19 +21,22 @@ if (isset($_SESSION['error_message'])) {
 
 <body>
 <header>
-        <!-- Navigation -->
-        <div class="container-xl pt-3">
-            <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
-                <h2 class="m-0 fw-bold text-white">Gestione Aziende Ospedaliere</h2>
+    <!-- Navigation -->
+    <div class="container-xl pt-3">
+        <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
+            <h2 class="m-0 fw-bold text-white">Gestione Aziende Ospedaliere</h2>
+            <div>
                 <a class="btn btn-outline-light" href="login.php">
                     Login
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
                         <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
                     </svg>
                 </a>
-            </nav>
-        </div>
-    </header>
+            </div>
+        </nav>
+    </div>
+</header>
+
 
 
     <section class="container-xl mx-auto" style="padding: 1rem 0;">

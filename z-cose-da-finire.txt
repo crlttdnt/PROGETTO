@@ -1,0 +1,5 @@
+- sostituzione primari
+- log in
+- documentazione
+- diagramma di flusso del sostituzione
+- consegnare il file con le 3 query

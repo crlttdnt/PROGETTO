@@ -200,10 +200,11 @@ INSERT INTO Stanza (numeroStanza, nomeReparto, ospedale, numeroLettiOccupati, nu
 INSERT INTO PazienteRicoverato (codiceFiscale, dataRicovero, dataDimissione, numeroStanza, nomeReparto, ospedale) VALUES 
 ('PZNT0011X01A123B', '2023-01-01', '2023-01-05' , 1, 'Cardiologia', 1),
 ('PZNT0012X01A123B', '2023-01-02', NULL, 2, 'Ortopedia', 2),
+('PZNT0012X01A123B', '2024-05-11', '2024-05-15', 1, 'Cardiologia', 1),
 ('PZNT0013X01A123B', '2023-01-03', NULL, 3, 'Pediatria', 3),
 ('PZNT0014X01A123B', '2023-01-04', NULL, 4, 'Cardiologia', 4),
 ('PZNT0015X01A123B', '2023-01-05', '2023-02-19', 5, 'Ortopedia', 1),
-('PZNT0016X01A123B', '2023-01-06', NULL, 6, 'Pediatria', 2),
+('PZNT0016X01A123B', '2023-01-06', '2023-04-12', 6, 'Pediatria', 2),
 ('PZNT0017X01A123B', '2023-01-07', NULL, 7, 'Cardiologia', 3),
 ('PZNT0018X01A123B', '2023-01-08', NULL, 8, 'Ortopedia', 4),
 ('PZNT0019X01A123B', '2023-01-09', NULL, 9, 'Pediatria', 1),
