@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 $table = $_SESSION['table'];
 
 if (isset($_SESSION['error_message'])) {

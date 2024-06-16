@@ -99,19 +99,7 @@ if (isset($_SESSION['error_message'])) {
                 </div>
 
                 <div>
-                    <h3 class='fw-bold fs-6 text-uppercase'> Sostituzioni Primari
-                    </h3>
-                    <a href='../examples/sostituzioniprimari.php'>
-                       <button class='btn btn-outline-dark' type='submit'>
-                            Vai alla pagina 
-                            <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-arrow-up-right' viewBox='0 0 16 16'>
-                                <path fill-rule='evenodd' d='M14 2.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0z'/>
-                            </svg>  
-                        </button>
-                    </a>
-                </div>
-                <div>
-                    <h3 class='fw-bold fs-6 text-uppercase'> Numero Sostituzioni Primari
+                    <h3 class='fw-bold fs-6 text-uppercase'> Sostituzioni Primari per Numero
                     </h3>
                     <a href='../examples/sostituzioniprimari-numero.php'>
                        <button class='btn btn-outline-dark' type='submit'>
