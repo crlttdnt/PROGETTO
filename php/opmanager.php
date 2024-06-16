@@ -48,7 +48,7 @@ switch ($operation) {
     case 'select-table':
         $_SESSION['query'] = $_POST['select'];
         list($x,$table) = sscanf($_POST['select'], "SELECT %s FROM %s");
-        $_SESSION['table'] = $table;
+        $_SESSION['table'] = strtolower($table);
         header("Location: /PROGETTO/php/view.php");
         break;
 }
