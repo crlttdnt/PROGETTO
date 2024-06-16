@@ -9,11 +9,14 @@ if (isset($_GET["table"])) {
     $table = strtolower($_SESSION['table']);
 }
 
+$query = $_SESSION['query'];
+
 if (isset($_SESSION['error_message'])) {
     $error_message = $_SESSION['error_message'];
     echo "<script type='text/javascript'>alert(`$error_message`);</script>";
     unset($_SESSION['error_message']);
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -57,17 +60,17 @@ if (isset($_SESSION['error_message'])) {
         <div class="bg-white mx-auto p-5 rounded-4 fit-content border border-secondary border-10" style="width: 100%;">
             <form action="opmanager.php" method="POST" class="w-100">
                 <div class='d-flex justify-content-end align-items-center'>
-                    <?php if (true) {
+                    <?php if ($_SESSION['user_type'] == 'worker') {
                         showWorkerSelect();
                     } else {
-                        showUserSelect();
+                        showPatientSelect();
                     } ?>
                     <button class="btn btn-outline-secondary ms-3 h-100" type="submit" value="select-table" name="operation">Visualizza</button>
                 </div>
             </form>
 
             <?php
-            if (true) {
+            if ($_SESSION['user_type'] == 'worker') {
                 echo "
                 <div class='d-flex justify-content-between align-items-center text-center mt-10' style='width: 100%;'>
                 <div>
@@ -157,6 +160,8 @@ if (isset($_SESSION['error_message'])) {
 function showTable($conn)
 {
     global $table;
+    global $query;
+
     $tables = [];
     $result = pg_query($conn, "SELECT table_name FROM information_schema.tables WHERE table_schema='public'");
     while ($row = pg_fetch_assoc($result)) {
@@ -166,10 +171,15 @@ function showTable($conn)
     $table_data = [];
     if (in_array($table, $tables)) {
         $table_name = pg_escape_identifier($conn, $table);
-        $table_result = pg_query($conn, "SELECT * FROM $table_name");
+        $table_result = pg_query($conn, $query);
         while ($row = pg_fetch_assoc($table_result)) {
             $table_data[] = $row;
         }
+        if (count($table_data) == 0) {
+            echo "<h4>Non sono presenti dati per questa tabella</h4>";
+            return;
+        }
+
         echo buildTable(array_keys($table_data[0]), $table_data);
     }
 }
@@ -183,24 +193,25 @@ function showWorkerSelect()
 
     foreach ($allTables as $table) {
         $table = strtoupper($table);
-        $string .= "<option value='{$table}'>{$table}</option>";
+        $string .= "<option value='SELECT * FROM {$table}'>{$table}</option>";
     }
 
     echo $string . "</select>";
 }
 
-function showUserSelect()
+function showPatientSelect()
 {
     $conn = connectToDatabase();
     $string = "<select class='form-select' name='select' size='5'>";
-
-    $allTables = getTables($conn);
-
-    foreach ($allTables as $table) {
-        $table = strtoupper($table);
-        $string .= "<option value='{$table}'>{$table}</option>";
-    }
-
+    $string .= <<<ABC
+    <option value="SELECT * FROM Paziente WHERE codiceFiscale = '{$_SESSION['codice_fiscale']}'">  
+    Informazione Paziente </option>
+    <option value="SELECT * FROM PazienteRicoverato WHERE codiceFiscale = '{$_SESSION['codice_fiscale']}'">  
+    Ricoveri </option>
+    <option value="SELECT * FROM Prenotazione WHERE pazienteVisita = '{$_SESSION['codice_fiscale']}'">  
+    Prenotazioni </option>
+    ABC;
+    //NON METTERE SPAZI TRA NOME E COGNOME
     echo $string . "</select>";
 }
 ?>

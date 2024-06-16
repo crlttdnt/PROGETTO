@@ -46,7 +46,9 @@ switch ($operation) {
     case 'logout':
         break;
     case 'select-table':
-        $_SESSION['table'] = strtolower($_POST['select']);
+        $_SESSION['query'] = $_POST['select'];
+        list($x,$table) = sscanf($_POST['select'], "SELECT %s FROM %s");
+        $_SESSION['table'] = $table;
         header("Location: /PROGETTO/php/view.php");
         break;
 }
@@ -138,12 +140,12 @@ function loginPatient($conn, $user) {
         } else {
             $_SESSION['user_type'] = 'patient';
             $_SESSION['codice_fiscale'] = $user;
-            header("Location: /PROGETTO/examples/ricoveroxpaziente.php"); // Rindirizza alla pagina ricoveroxpaziente.php dopo il login del paziente
+            header("Location: /PROGETTO/php/view.php"); 
             exit();
         }
     } catch (Exception $e) {
         $_SESSION['error_message'] = $e->getMessage();
-        header("Location: /PROGETTO/php/login.php");
+        header("Location: /PROGETTO/login.php");
         exit();
     }
 }
@@ -159,12 +161,12 @@ function loginWorker($conn, $user) {
         } else {
             $_SESSION['user_type'] = 'worker';
             $_SESSION['codice_fiscale'] = $user;
-            header("Location: /PROGETTO/php/view.php"); // Rindirizza alla pagina view.php dopo il login dipendente
+            header("Location: /PROGETTO/php/view.php"); 
             exit();
         }
     } catch (Exception $e) {
         $_SESSION['error_message'] = $e->getMessage();
-        header("Location: /PROGETTO/php/login.php");
+        header("Location: /PROGETTO/login.php");
         exit();
     }
 }

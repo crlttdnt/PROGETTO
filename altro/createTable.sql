@@ -35,8 +35,8 @@ CREATE TABLE Personale (
     via VARCHAR(40) NOT NULL,
     CAP INT NOT NULL,
     numeroCivico INT NOT NULL,
-    nomeReparto VARCHAR(20) NOT NULL,
-    ospedale INT NOT NULL,
+    nomeReparto VARCHAR(20),
+    ospedale INT,
     FOREIGN KEY (ospedale, nomeReparto) REFERENCES Reparto (ospedale, nomeReparto) ON UPDATE CASCADE
 );
 
@@ -80,9 +80,9 @@ CREATE TABLE VicePrimario (
 CREATE TABLE Specializzazione (nome VARCHAR(20) PRIMARY KEY);
 
 CREATE TABLE qualifica (
-    codiceFiscale CHAR(17) REFERENCES PersonaleMedico (codiceFiscale) ON UPDATE CASCADE,
+    primario CHAR(17) REFERENCES Primario (codiceFiscale) ON UPDATE CASCADE,
     nome VARCHAR(20) REFERENCES Specializzazione (nome) ON UPDATE CASCADE,
-    PRIMARY KEY (nome, codiceFiscale)
+    PRIMARY KEY (nome, primario)
 );
 
 CREATE TABLE sostituisce (
@@ -130,7 +130,6 @@ CREATE TABLE PazienteRicoverato (
     numeroStanza INT NOT NULL,
     nomeReparto VARCHAR(30) NOT NULL,
     ospedale INT NOT NULL,
-    FOREIGN KEY (ospedale, nomeReparto) REFERENCES Reparto (ospedale, nomeReparto) ON UPDATE CASCADE,
     FOREIGN KEY (numeroStanza, nomeReparto, ospedale) REFERENCES Stanza (numeroStanza, nomeReparto, ospedale) ON UPDATE CASCADE,
     PRIMARY KEY (codiceFiscale, dataRicovero)
 );
@@ -160,7 +159,6 @@ CREATE TABLE LaboratorioInterno (
     nomeReparto VARCHAR(30),
     PRIMARY KEY (ospedale , nomeReparto, numeroStanza),
     FOREIGN KEY (numeroStanza, nomeReparto, ospedale ) REFERENCES Stanza (numeroStanza, nomeReparto, ospedale) ON UPDATE CASCADE,
-    FOREIGN KEY (ospedale, nomeReparto) REFERENCES Reparto (ospedale, nomeReparto) ON UPDATE CASCADE
 );
 
 CREATE TABLE LaboratorioEsterno (
@@ -184,8 +182,8 @@ CREATE TABLE orarioApertura (
 CREATE TABLE Esame (
     codiceEsame INT PRIMARY KEY,
     descrizione VARCHAR(80) NOT NULL,
-costoAssistenza INT NOT NULL,
-costoPrivato INT NOT NULL
+    costoAssistenza INT NOT NULL,
+    costoPrivato INT NOT NULL
   );
 
 CREATE TABLE EsameSpecialistico (
