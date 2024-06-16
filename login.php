@@ -42,13 +42,14 @@ if (isset($_SESSION['error_message'])) {
         <h3 class="text-dark fw-bold fs-3 py-1 px-3 text-uppercase text-center">Log In</h3>
         <section class="container row mx-auto">
             <div class="row justify-content-center">
+            <p class="mt-3 fs-6 text-secondary fw-ligher text-center">Ricorda: il tuo Username corrisponde al tuo Codice Fiscale</p>
                 <div class="col-md-5 my-4 mx-2 border rounded mb-4 login-card">
                 <h4 class="m-0 p-0 fw-medium text-center" style="margin-top: 20px !important;">Accesso Dipendente</h4>
                     <div class="mt-3">
                         <form action="php/opmanager.php" method="POST" class="styled-form">
                             <input type="hidden" name="operation" value="login-worker">
                             <div class="mb-3">
-                                <label for="codiceFiscaleDipendente" class="form-label">Codice Fiscale</label>
+                                <label for="codiceFiscaleDipendente" class="form-label">Username</label>
                                 <input type="text" class="form-control" id="codiceFiscaleDipendente" name="codiceFiscaleDipendente" required>
                             </div>
                             <div class="d-flex justify-content-center mt-4">
@@ -68,7 +69,7 @@ if (isset($_SESSION['error_message'])) {
                         <form action="php/opmanager.php" method="POST" class="styled-form">
                             <input type="hidden" name="operation" value="login-patient">
                             <div class="mb-3">
-                                <label for="codiceFiscalePaziente" class="form-label">Codice Fiscale</label>
+                                <label for="codiceFiscalePaziente" class="form-label">Username</label>
                                 <input type="text" class="form-control" id="codiceFiscalePaziente" name="codiceFiscalePaziente" required>
                             </div>
                             <div class="d-flex justify-content-center mt-4" style="margin-bottom: 20px;">
