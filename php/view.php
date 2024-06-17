@@ -112,7 +112,7 @@ if (isset($_SESSION['error_message'])) {
                 </div>
                 </div>
 
-            <div class='d-flex justify-content-between align-items-center text-center mt-10' style='padding:30px'>
+            <div class='d-flex justify-content-between align-items-center text-center mt-10' style='padding:35px'>
                 <div class='align-items-center'>
                     <h3 class='fw-bold fs-6 text-uppercase'> Volontari senza Attività 123 
                     </h3>

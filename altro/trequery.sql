@@ -65,6 +65,15 @@ c. CF dei Volontari che non hanno mai svolto attività con codice 123
         WHERE p.IDAttività = 123
 );
 
+d. CF dei Volontari che non hanno mai svolto attività con selezione
+SELECT CF
+              FROM Volontario
+              WHERE CF NOT IN (
+                  SELECT p.volontario
+                  FROM PresenzaVol p
+                  WHERE p.idattività = $idattivita
+              );
+
 
 
 
