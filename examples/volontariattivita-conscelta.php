@@ -19,8 +19,8 @@ if (isset($_SESSION['error_message'])) {
 
 $selectedOption = null;
 
-if (isset($_POST['idattività'])) {
-    $selectedOption = $_POST['idattività'];
+if (isset($_POST['idattività'])) { //nome della tabella
+    $selectedOption = $_POST['idattività']; //nome della tabella
 }
 ?>
 
@@ -89,7 +89,7 @@ if (isset($_POST['idattività'])) {
 </html>
 
 <?php
-function showTable($idattivita)
+function showTable($idattivita) //lo chiami come vuoi
 {
     $conn = connectToDatabase();
 
@@ -117,7 +117,7 @@ function showTable($idattivita)
         echo "<tbody>";
         while ($row = pg_fetch_assoc($results)) {
             echo "<tr>";
-            echo "<td>" . htmlspecialchars($row['cf']) . "</td>"; 
+            echo "<td>" . htmlspecialchars($row['cf']) . "</td>";  //cf --> quello che c'è in select in minuscolo
             echo "</tr>";
         }
         echo "</tbody></table>";
