@@ -158,7 +158,7 @@ CREATE TABLE LaboratorioInterno (
     numeroStanza INT,
     nomeReparto VARCHAR(30),
     PRIMARY KEY (ospedale , nomeReparto, numeroStanza),
-    FOREIGN KEY (numeroStanza, nomeReparto, ospedale ) REFERENCES Stanza (numeroStanza, nomeReparto, ospedale) ON UPDATE CASCADE,
+    FOREIGN KEY (numeroStanza, nomeReparto, ospedale ) REFERENCES Stanza (numeroStanza, nomeReparto, ospedale) ON UPDATE CASCADE
 );
 
 CREATE TABLE LaboratorioEsterno (

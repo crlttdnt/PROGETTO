@@ -128,17 +128,13 @@ INSERT INTO Specializzazione (nome) VALUES
 ('Neurologia');
 
 
-INSERT INTO qualifica (codiceFiscale, nome) VALUES 
+INSERT INTO qualifica (primario, nome) VALUES 
 ('BNCGLR95T20F205Q', 'Cardiologia'),
 ('RSSGRL87C01F205A', 'Ortopedia'),
 ('NCLLRA88E15F205B', 'Pediatria'),
 ('VRDGPP90S20H501D', 'Cardiologia'),
-('FRNLRA89A01F205J', 'Ortopedia'),
-('MNLGRL91E15F205M', 'Pediatria'),
-('BNCGLR96T20F205P', 'Cardiologia'),
-('RSSMRA81M01H501L', 'Ortopedia'),
-('BNCLRA82E15F205G', 'Pediatria'),
-('VRDGPP85S20H501E', 'Cardiologia');
+('FRNLRA89A01F205J', 'Ortopedia');
+
 
 
 INSERT INTO sostituisce (Primario, VicePrimario, inizioSostituzione, fineSostituzione) VALUES 
