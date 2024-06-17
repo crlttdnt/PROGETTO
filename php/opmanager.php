@@ -16,7 +16,7 @@ $attributes = parsePostValues();
 switch ($operation) {
     case 'edit':
         $_SESSION['edit_data'] = $_POST;
-        header("Location: /PROGETTO/php/update.php?table={$table}");
+        header("Location: update.php?table={$table}");
         break;
     case 'insert':
         $_SESSION['table'] = strtolower($table);
@@ -24,13 +24,13 @@ switch ($operation) {
         $names = implode(", ", array_keys($attributes));
         $values = implode(", ", array_map(fn ($el) => "'$el'", array_values($attributes)));
         insertIntoDatabase($conn, $table, $names, $values);
-        header("Location: /PROGETTO/php/view.php?table={$table}");
+        header("Location: view.php?table={$table}");
         break;
     case 'update':
         $_SESSION['table'] = strtolower($table);
         updateIntoDatabase($conn, $table, $attributes);
         unset($_SESSION['edit_data']);
-        header("Location: /PROGETTO/php/view.php?table={$table}");
+        header("Location: view.php?table={$table}");
         break;
     case 'delete':
         deleteFromDatabase($conn, $table);
@@ -49,7 +49,7 @@ switch ($operation) {
         $_SESSION['query'] = $_POST['select'];
         list($x,$table) = sscanf($_POST['select'], "SELECT %s FROM %s");
         $_SESSION['table'] = strtolower($table);
-        header("Location: /PROGETTO/php/view.php");
+        header("Location: view.php");
         break;
 }
 
@@ -68,10 +68,10 @@ function deleteFromDatabase($conn, $table)
         if (!$result) {
             throw new Exception(pg_last_error($conn));
         } 
-        header("Location: /PROGETTO/php/view.php");
+        header("Location: view.php");
     } catch (Exception $e) {
         $_SESSION['error_message'] = $e->getMessage();
-        header("Location: /PROGETTO/php/view.php");
+        header("Location: view.php");
         exit();
     }
 }
@@ -87,11 +87,11 @@ function insertIntoDatabase($conn, $table, $attributes, $values)
             throw new Exception(pg_last_error($conn));
         }
         
-        header("Location: /PROGETTO/php/view.php?table={$table}");
+        header("Location: view.php?table={$table}");
     } catch (Exception $e) {
         $_SESSION['inserted_data'] = $_POST;
         $_SESSION['error_message'] = $e->getMessage();
-        header("Location:/PROGETTO/php/insert.php");
+        header("Location:insert.php");
         exit();
     }
 }
@@ -122,10 +122,10 @@ function updateIntoDatabase($conn, $table, $values)
             throw new Exception(pg_last_error($conn));
         }
         
-        header("Location: /PROGETTO/php/view.php?table={$table}");
+        header("Location: view.php?table={$table}");
     } catch (Exception $e) {
         $_SESSION['error_message'] = $e -> getMessage();
-        header("Location:/PROGETTO/php/update.php");
+        header("Location:update.php");
         exit();
     }
 }
@@ -140,12 +140,12 @@ function loginPatient($conn, $user) {
         } else {
             $_SESSION['user_type'] = 'patient';
             $_SESSION['codice_fiscale'] = $user;
-            header("Location: /PROGETTO/php/view.php"); 
+            header("Location: view.php"); 
             exit();
         }
     } catch (Exception $e) {
         $_SESSION['error_message'] = $e->getMessage();
-        header("Location: /PROGETTO/login.php");
+        header("Location: ../login.php");
         exit();
     }
 }
@@ -161,12 +161,12 @@ function loginWorker($conn, $user) {
         } else {
             $_SESSION['user_type'] = 'worker';
             $_SESSION['codice_fiscale'] = $user;
-            header("Location: /PROGETTO/php/view.php"); 
+            header("Location: view.php"); 
             exit();
         }
     } catch (Exception $e) {
         $_SESSION['error_message'] = $e->getMessage();
-        header("Location: /PROGETTO/login.php");
+        header("Location: ../login.php");
         exit();
     }
 }

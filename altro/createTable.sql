@@ -232,3 +232,28 @@ CREATE TABLE TurnoPS (
     ),
     PRIMARY KEY (personaleSanitario, ospedale, inizioTurno)
 );
+
+-- nuove create table giugno 22
+CREATE TABLE Volontario (
+	CF CHAR(17) PRIMARY KEY,
+	nome VARCHAR(30) NOT NULL,
+    cognome VARCHAR(30) NOT NULL,
+    Associazione VARCHAR(40) NOT NULL
+);
+
+CREATE TABLE PresenzaVol (
+	Volontario CHAR(17) REFERENCES Volontario(CF) ON UPDATE CASCADE,
+    nomeReparto VARCHAR(30), 
+    ospedale INT,  
+    DataInizio DATE,
+    DataFine DATE,
+    CHECK ( 
+        DataFine IS NULL 
+        OR DataFine >= DataInizio),     
+    IDAttività INT NOT NULL,
+    MedicoSupervisore CHAR(17) NOT NULL,
+    FOREIGN KEY(MedicoSupervisore, nomeReparto, ospedale) REFERENCES Personale(codiceFiscale, nomeReparto, ospedale) 
+    ON   UPDATE CASCADE,
+    PRIMARY KEY(Volontario, nomeReparto, ospedale, DataInizio)
+);
+

@@ -1,7 +1,7 @@
 <?php
 // error_reporting (E_ERROR); //hides warnings
 
-$connectionString = "host=localhost port=5432 dbname=ospedali user=postgres password=unimi";
+$connectionString = "host=localhost port=5432 dbname=giugno22 user=postgres password=unimi";
 
 //Connection to Database
 function connectToDatabase()

@@ -343,3 +343,28 @@ INSERT INTO TurnoPS (personaleSanitario, ospedale, inizioTurno, fineTurno) VALUE
 ('RSSMRA81M01H501L', 4, '2024-06-01 14:00:00', '2024-06-01 20:00:00'),
 ('BNCLRA82E15F205G', 1, '2024-06-02 08:00:00', '2024-06-02 14:00:00'),
 ('VRDGPP85S20H501E', 1, '2024-06-02 14:00:00', '2024-06-02 20:00:00');
+
+--Insert nuove giugno22
+
+INSERT INTO Volontario (CF, nome, cognome, Associazione) VALUES
+('DNTCLT03T59F205W', 'Carlotta', 'Donato', 'Ass. Fatebenefratelli'),
+('TGFLRT03T59F205W', 'Alberto', 'Tagliaferri', 'Ass. Fatebenefratelli'),
+('VLNRSL03T59F205W', 'Rossella', 'Valenti', 'Ass. AmiciVolontari'),
+('DNTGLL03T59F205W', 'Giulia', 'Donato', 'Ass. AmiciVolontari'),
+('RSSLND03T59F205W', 'Leonardo', 'Rossi', 'Ass. VolontariInsieme'),
+('DNTLSR03T59F205W', 'Donato', 'Alessandro', 'Ass. VolontariInsieme'),
+('RSSCLT03T59F205W', 'Rossi', 'Carlotta', 'Ass. VolontariInsieme'),
+('RDLBTR03T59F205W', 'Radaelli', 'Beatrice', 'Ass. VolontariInsieme');
+
+INSERT INTO PresenzaVol (Volontario, DataInizio, nomeReparto, ospedale, IDAttività, MedicoSupervisore, DataFine) VALUES
+('DNTCLT03T59F205W', '2024-06-01', 'Pediatria', 2, 123, 'BNCGLR95T20F205Q', '2024-06-20'),
+('DNTCLT03T59F205W', '2024-10-11', 'Pediatria', 2, 999, 'BNCGLR95T20F205Q', '2024-10-12'),
+('DNTCLT03T59F205W', '2024-07-15', 'Cardiologia', 3, 456, 'RSSGRL87C01F205A', '2024-08-20'),
+('TGFLRT03T59F205W', '2023-06-01', 'Pediatria', 2, 789, 'BNCGLR95T20F205Q', '2023-06-20'),
+('VLNRSL03T59F205W', '2022-11-12', 'Pediatria', 2, 111, 'BNCGLR95T20F205Q', '2022-12-12'),
+('DNTGLL03T59F205W', '2021-06-01', 'Pediatria', 2, 222, 'BNCGLR95T20F205Q', '2021-06-20'),
+('RSSLND03T59F205W', '2020-06-01', 'Pediatria', 2, 333, 'BNCGLR95T20F205Q', '2020-06-20'),
+('RSSLND03T59F205W', '2024-06-01', 'Ortopedia', 3, 444, 'NCLLRA88E15F205B', '2024-06-20'),
+('DNTLSR03T59F205W', '2024-06-01', 'Pediatria', 3, 555, 'VRDGPP90S20H501D', '2024-06-20'),
+('RSSCLT03T59F205W', '2023-06-01', 'Pediatria', 3, 666, 'VRDGPP90S20H501D', '2023-06-20'),
+('RDLBTR03T59F205W', '2024-06-01', 'Cardiologia', 4, 777, 'FRNLRA89A01F205J', '2024-06-20');

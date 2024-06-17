@@ -35,4 +35,36 @@ c. Determinare i vice primari che non hanno mai sostituito il proprio primario
 
 
 
+Nuove Query:
+a. Volontari con maggior numero di Presenze (????)
+
+    SELECT Volontario, COUNT(*) AS NumeroPresenze
+    FROM PresenzaVol
+    GROUP BY Volontario
+    ORDER BY NumeroPresenze DESC;
+
+OPPURE (no):
+    SELECT Volontario
+    FROM PresenzaVol
+    GROUP BY Volontario
+    HAVING COUNT(*) > 1
+
+b. Medici che hanno seguito nel tempo almeno 5 volontari differenti
+    SELECT MedicoSupervisore
+    FROM PresenzaVol
+    GROUP BY MedicoSupervisore
+    HAVING COUNT(DISTINCT Volontario) >= 5;
+
+
+c. CF dei Volontari che non hanno mai svolto attività con codice 123
+    SELECT CF
+    FROM Volontario
+    EXCEPT (
+        SELECT p.Volontario
+        FROM PresenzaVol p JOIN Volontario v ON p.Volontario=v.CF
+        WHERE p.IDAttività = 123
+);
+
+
+
 
